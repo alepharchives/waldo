@@ -3,8 +3,7 @@
 
 -include_lib("kernel/src/inet_dns.hrl").
 
--define(REAL_DNS_SERVER, {192, 168, 0, 1}).
--define(DNS_PASS_THROUGH, false).
+-define(REAL_DNS_SERVER, {8,8,8,8}).
 
 real_q(Type, Domain, NS, 0) ->
     real_q(Type, Domain, NS, random:uniform(65535));
