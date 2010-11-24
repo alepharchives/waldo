@@ -1,8 +1,6 @@
 -module(dns).
 -compile(export_all).
-
 -include_lib("kernel/src/inet_dns.hrl").
-
 -define(REAL_DNS_SERVER, {8,8,8,8}).
 
 real_q(Type, Domain, NS, 0) ->
@@ -27,6 +25,7 @@ real_q(Type, Domain, NS, ReqID) ->
     gen_udp:send(Socket, NS, 53, Query),
     {ok, {NS, 53, Reply}} = gen_udp:recv(Socket, 65535),
     {ok, R} = inet_dns:decode(Reply),
+    gen_udp:close(Socket),
     R.
     
 build_answer_list(QDList) ->
